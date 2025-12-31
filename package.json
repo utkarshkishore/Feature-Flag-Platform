@@ -1,0 +1,16 @@
+{
+  "name": "feature-flag-platform",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "lint": "npm -ws run lint",
+    "test": "npm -ws run test",
+    "build": "npm -ws run build"
+  },
+  "devDependencies": {
+    "prettier": "^3.3.3"
+  }
+}
