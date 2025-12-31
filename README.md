@@ -25,16 +25,26 @@ docs/             Architecture, runbook, API usage
 make dev
 ```
 
-2) Run migrations + seed
+2) Run migrations + seed inside the backend container
 ```bash
-npm --workspace apps/backend run prisma:dev
-npm --workspace apps/backend run seed
+docker exec -it \
+  -e DATABASE_URL=postgresql://postgres:postgres@postgres:5432/featureflag \
+  featureflag-backend-1 \
+  npx prisma migrate deploy
+
+docker exec -it \
+  -e DATABASE_URL=postgresql://postgres:postgres@postgres:5432/featureflag \
+  featureflag-backend-1 \
+  npm run seed
 ```
 
 3) Visit apps
 - Frontend: http://localhost:3000
 - Backend: http://localhost:4000
 - Swagger: http://localhost:4000/docs
+
+## Troubleshooting
+- If you have local Postgres running, it can conflict with Docker on port 5432. Stop it or run migrations inside the container as shown above.
 
 ## Environment variables
 Backend (`apps/backend/.env.example`)
